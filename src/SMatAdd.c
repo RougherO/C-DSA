@@ -1,87 +1,91 @@
 #include <stdio.h>
 
-typedef struct {
+typedef struct elem {
     int data;
-    unsigned row;
-    unsigned col;
+    int row;
+    int col;
 } elem;
 
-typedef struct {
-    unsigned no_of_non_zero;
-    unsigned no_of_rows;
-    unsigned no_of_cols;
+typedef struct Matrix {
     elem arr[100];
-} matrix;
-
-void shift(elem* start, elem* end)
-{
-    for (; end > start; --end) {
-        *end = *(end - 1);
-    }
-}
+    int numOfNonZero;
+    int rows;
+    int cols;
+} Matrix;
 
 int main()
 {
-    matrix mat = { 0 }, mat_2 = { 0 }, mat_r = { 0 };
-    mat.no_of_non_zero = 0;
-    mat_2.no_of_non_zero = 0;
+    Matrix m1 = { 0 }, m2 = { 0 }, m3 = { 0 };
 
-    printf("Enter number of rows : ");
-    scanf("%u", &mat.no_of_rows);
+    printf("Enter num of rows of Matrix 1 : ");
+    scanf("%d", &m1.rows);
+    printf("Enter num of cols of Matrix 1 : ");
+    scanf("%d", &m1.cols);
 
-    printf("Enter number of columns : ");
-    scanf("%u", &mat.no_of_cols);
-
-    for (int i = 0, data = 0; i < mat.no_of_rows; ++i) {
-        for (int j = 0; j < mat.no_of_cols; ++j) {
-            printf("Enter element [%u][%u] : ", i + 1, j + 1);
-            scanf("%d", &data);
-            if (data != 0) {
-                mat.arr[mat.no_of_non_zero].data = data;
-                mat.arr[mat.no_of_non_zero].row = i;
-                mat.arr[mat.no_of_non_zero].col = j;
-                ++mat.no_of_non_zero;
-            }
-        }
+    for (int i = 0, ch = 'Y'; ch == 'Y' || ch == 'y'; ++i) {
+        printf("Enter row index : ");
+        scanf("%d", &m1.arr[i].row);
+        printf("Enter col index : ");
+        scanf("%d", &m1.arr[i].col);
+        printf("Enter non zero value : ");
+        scanf("%d", &m1.arr[i]);
+        m1.numOfNonZero += 1;
+        printf("Continue to Enter values [Y/n]: ");
+        scanf("%*c%c", &ch);
     }
 
-    printf("Enter number of rows : ");
-    scanf("%u", &mat_2.no_of_rows);
+    printf("Enter num of rows of Matrix 2 : ");
+    scanf("%d", &m2.rows);
+    printf("Enter num of cols of Matrix 2 : ");
+    scanf("%d", &m2.cols);
 
-    printf("Enter number of columns : ");
-    scanf("%u", &mat_2.no_of_cols);
-
-    if (!(mat_2.no_of_cols == mat.no_of_cols && mat_2.no_of_rows == mat.no_of_rows)) {
-        printf("Matrices cannot be added because of different dimension");
-        return 1;
+    for (int i = 0, ch = 'Y'; ch == 'Y' || ch == 'y'; ++i) {
+        printf("Enter row index : ");
+        scanf("%d", &m2.arr[i].row);
+        printf("Enter col index : ");
+        scanf("%d", &m2.arr[i].col);
+        printf("Enter non zero value : ");
+        scanf("%d", &m2.arr[i]);
+        m2.numOfNonZero += 1;
+        printf("Continue to Enter values [Y/n]: ");
+        scanf("%*c%c", &ch);
     }
 
-    for (int i = 0, data = 0; i < mat_2.no_of_rows; ++i) {
-        for (int j = 0; j < mat_2.no_of_cols; ++j) {
-            printf("Enter element [%u][%u] : ", i + 1, j + 1);
-            scanf("%d", &data);
-            if (data != 0) {
-                mat_2.arr[mat_2.no_of_non_zero].data = data;
-                mat_2.arr[mat_2.no_of_non_zero].row = i;
-                mat_2.arr[mat_2.no_of_non_zero].col = j;
-                ++mat_2.no_of_non_zero;
-            }
-        }
+    if (m1.rows != m2.rows || m1.cols != m2.cols) {
+        printf("Cannot add the matrices");
     }
 
-    // Without a third matrix
-    for (int j = 0, i = 0; j < mat_2.no_of_non_zero; ++j) {
-        for (; i < mat.no_of_non_zero && !(mat.arr[i].row == mat_2.arr[j].row && mat.arr[i].col == mat_2.arr[j].col); ++i)
-            ;
-        if (i != mat.no_of_non_zero) {
-            mat.arr[i].data += mat_2.arr[j].data;
+    int i = 0, j = 0, k = 0;
+    for (; i < m1.numOfNonZero && j < m2.numOfNonZero;) {
+        if (m1.arr[i].row < m2.arr[j].row) {
+            m3.arr[k++] = m1.arr[i++];
+        } else if (m2.arr[j].row < m1.arr[i].row) {
+            m3.arr[k++] = m2.arr[j++];
+        } else if (m1.arr[i].col < m2.arr[j].col) {
+            m3.arr[k++] = m1.arr[i++];
+        } else if (m2.arr[j].col < m1.arr[i].col) {
+            m3.arr[k++] = m2.arr[j++];
         } else {
-            mat.arr[mat.no_of_non_zero++] = mat_2.arr[j];
+            m3.arr[k].data = m1.arr[i].data + m2.arr[j].data;
+            m3.arr[k].row = m1.arr[i].row;
+            m3.arr[k].col = m1.arr[i].col;
+            ++k, ++j, ++i;
         }
+        m3.numOfNonZero += 1;
     }
 
-    for (int i = 0; i < mat.no_of_non_zero; ++i) {
-        printf("Element [%u][%u] : %d\n", mat.arr[i].row + 1, mat.arr[i].col + 1, mat.arr[i].data);
+    for (; i < m1.numOfNonZero; ++i) {
+        m3.arr[k++] = m1.arr[i++];
+        m3.numOfNonZero += 1;
     }
-    printf("\n");
+
+    for (; j < m2.numOfNonZero; ++j) {
+        m3.arr[k++] = m2.arr[j++];
+        m3.numOfNonZero += 1;
+    }
+
+    printf("Adding Two Matrices: \n");
+    for (int i = 0; i < m3.numOfNonZero; ++i) {
+        printf("[%d][%d] : %d\n", m3.arr[i].row, m3.arr[i].col, m3.arr[i].data);
+    }
 }
