@@ -5,10 +5,10 @@
     "C_Cpp.clang_format_style": "file:${workspaceFolder}/config/.clang-format",
     "cmake.configureArgs": [],
     "cmake.configureSettings": {},
-    "cmake.sourceDirectory": "${workspaceFolder}/src",
+    "cmake.sourceDirectory": "/home/roughero/Programming/Cpp/DSA",
     "cmake.defaultVariants": {
         "buildType": {
-            "default": "debug",
+            "default": "Debug",
             "description": "The build type.",
             "choices": {
                 "debug": {
@@ -35,13 +35,5 @@
         }
     },
     "cmake.buildDirectory": "${workspaceFolder}/build/${buildType}",
-    "cmake.configureOnOpen": true,
-    "files.associations": {
-        "string": "cpp",
-        "stdint.h": "c",
-        "cstdint": "c",
-        "stdint-gcc.h": "c",
-        "stdlib.h": "c",
-        "stdio.h": "c"
-    },
+    "cmake.configureOnOpen": true
 }

@@ -2,9 +2,7 @@
     "configurations": [
         {
             "name": "Linux - CPP20(gcc)",
-            "includePath": [
-                "${workspaceFolder}/include"
-            ],
+            "includePath": [],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
@@ -13,9 +11,7 @@
         },
         {
             "name": "Linux - CPP17(gcc)",
-            "includePath": [
-                "${workspaceFolder}/include"
-            ],
+            "includePath": [],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
@@ -24,9 +20,7 @@
         },
         {
             "name": "Linux - CPP20(clang)",
-            "includePath": [
-                "${workspaceFolder}/include"
-            ],
+            "includePath": [],
             "defines": [],
             "compilerPath": "/usr/bin/clang++",
             "cStandard": "c17",
@@ -35,9 +29,7 @@
         },
         {
             "name": "Linux - CPP17(clang)",
-            "includePath": [
-                "${workspaceFolder}/include"
-            ],
+            "includePath": [],
             "defines": [],
             "compilerPath": "/usr/bin/clang++",
             "cStandard": "c17",
