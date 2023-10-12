@@ -7,29 +7,28 @@ typedef struct node {
     struct node* right;
 } Node;
 
-Node* buildTree(Node* node)
+void buildTree(Node* node)
 {
     int data;
     printf("Enter left value of %d: ", node->val);
-    scanf("%d", data);
-    if (data == 'N') {
+    scanf("%d", &data);
+    if (data == -1) {
         node->left = NULL;
     } else {
         node->left = malloc(sizeof(Node));
         node->left->val = data;
+         buildTree(node->left);
     }
     printf("Enter right value of %d: ", node->val);
-    scanf("%d", data);
-    if (data == 'N') {
+    scanf("%d", &data);
+    if (data == -1) {
         node->right = NULL;
     } else {
         node->right = malloc(sizeof(Node));
         node->right->val = data;
+         buildTree(node->right);
     }
-    if (node->left)
-        buildTree(node->left);
-    if (node->right)
-        buildTree(node->right);
+    
 }
 
 void InOrder(Node* node)
